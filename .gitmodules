@@ -1,0 +1,8 @@
+[submodule "btmesh/RIOT"]
+	path = btmesh/RIOT
+	url = https://github.com/haukepetersen/RIOT.git
+	branch = add_nimble_mesh
+[submodule "btmesh/mynewt-nimble"]
+	path = btmesh/mynewt-nimble
+	url = https://github.com/haukepetersen/mynewt-nimble.git
+	branch = bench_mesh_stats
