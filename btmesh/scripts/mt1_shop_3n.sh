@@ -11,15 +11,14 @@
 ###    Experiment Configuration    ###
 ######################################
 # Name of the experiment, the resulting log file will have this name
-EXPNAME=6nodes_mt1_1-100
+EXPNAME=mt1_shop_3n_100-5s
 # The nodes used for this experiment
-NUM_NODES=${NUM_NODES:-6}
-SACLAY_NODES="1-6"
+NUM_NODES=3
 # Configure the traffic pattern and experiment runtime
-REQUESTS=${REQUESTS:-100}
-DELAY_REQUEST=${DELAY_REQUEST:-5000000}     # in us
-DELAY_JITTER=${DELAY_JITTER:-2500000}        # in us
-TIMEOUT=${TIMEOUT:-600}                     # in sec
+REQUESTS=100
+DELAY_REQUEST=5000000       # in us
+DELAY_JITTER=2500000        # in us
+TIMEOUT=600                 # in sec
 
 
 ####################################
@@ -28,6 +27,7 @@ TIMEOUT=${TIMEOUT:-600}                     # in sec
 # Iot-lab user is automatically deducted from local configuration
 IOTLAB_USER="${IOTLAB_USER:-$(cut -f1 -d: ${HOME}/.iotlabrc)}"
 IOTLAB_SITE="${IOTLAB_SITE:-saclay}"
+SACLAY_NODES="1-${NUM_NODES}"
 # This value is highly overprovisioned, just in case...
 IOTLAB_DURATION=${IOTLAB_DURATION:-200}     # in min
 # Path to RIOT project used, per default we expect this script to be in the same path
@@ -56,7 +56,7 @@ iotlab-experiment wait -i ${EXPID} || {
     exit 1
 }
 # Once successful, we generate the full filename for the output logfile
-NAME="$EXPNAME-$EXPID-$IOTLAB_SITE_$(date +%d-%m-%Y"_"%H-%M)"
+NAME="${EXPNAME}_${EXPID}-${IOTLAB_SITE}_$(date +%d-%m-%Y"_"%H-%M)"
 
 
 ################################
@@ -71,13 +71,9 @@ CMD_EXPERIMENT=$(cat << CMD
 sleep 5
 tmux send-keys -t riot-${EXPID}:2 "reboot" C-m
 sleep 5
-# tmux send-keys -t riot-${EXPID}:2 ""
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-1;cfg_sink" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-2;cfg_source" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-3;cfg_source" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-4;cfg_source" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-5;cfg_source" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-6;cfg_source" C-m
 
 # Probe for background traffic
 tmux send-keys -t riot-${EXPID}:2 "clr" C-m
@@ -89,9 +85,6 @@ sleep 1
 tmux send-keys -t riot-${EXPID}:2 "clr" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-2;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-3;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-4;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-5;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-6;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
 sleep ${TIMEOUT}
 tmux send-keys -t riot-${EXPID}:2 "stats" C-m
 sleep 1

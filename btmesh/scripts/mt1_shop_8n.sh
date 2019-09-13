@@ -11,14 +11,14 @@
 ###    Experiment Configuration    ###
 ######################################
 # Name of the experiment, the resulting log file will have this name
-EXPNAME=mt1_10n
+EXPNAME=mt1_shop_8n_100-5s
 # The nodes used for this experiment
-NUM_NODES=${NUM_NODES:-10}
+NUM_NODES=8
 # Configure the traffic pattern and experiment runtime
-REQUESTS=${REQUESTS:-100}
-DELAY_REQUEST=${DELAY_REQUEST:-5000000}     # in us
-DELAY_JITTER=${DELAY_JITTER:-2500000}       # in us
-TIMEOUT=${TIMEOUT:-600}                     # in sec
+REQUESTS=100
+DELAY_REQUEST=5000000       # in us
+DELAY_JITTER=2500000        # in us
+TIMEOUT=600                 # in sec
 
 
 ####################################
@@ -56,7 +56,7 @@ iotlab-experiment wait -i ${EXPID} || {
     exit 1
 }
 # Once successful, we generate the full filename for the output logfile
-NAME="${EXPNAME}-${EXPID}-${IOTLAB_SITE}_$(date +%d-%m-%Y"_"%H-%M)"
+NAME="${EXPNAME}_${EXPID}-${IOTLAB_SITE}_$(date +%d-%m-%Y"_"%H-%M)"
 
 
 ################################
@@ -68,7 +68,6 @@ CMD
 )
 
 CMD_EXPERIMENT=$(cat << CMD
-# Reboot and configure RIOT nodes
 sleep 5
 tmux send-keys -t riot-${EXPID}:2 "reboot" C-m
 sleep 5
@@ -80,8 +79,6 @@ tmux send-keys -t riot-${EXPID}:2 "nrf52dk-5;cfg_source" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-6;cfg_source" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-7;cfg_source" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-8;cfg_source" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-9;cfg_source" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-10;cfg_source" C-m
 
 # Probe for background traffic
 tmux send-keys -t riot-${EXPID}:2 "clr" C-m
@@ -98,8 +95,6 @@ tmux send-keys -t riot-${EXPID}:2 "nrf52dk-5;run_lvl ${REQUESTS} ${DELAY_REQUEST
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-6;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-7;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
 tmux send-keys -t riot-${EXPID}:2 "nrf52dk-8;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-9;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
-tmux send-keys -t riot-${EXPID}:2 "nrf52dk-10;run_lvl ${REQUESTS} ${DELAY_REQUEST} ${DELAY_JITTER}" C-m
 sleep ${TIMEOUT}
 tmux send-keys -t riot-${EXPID}:2 "stats" C-m
 sleep 1
