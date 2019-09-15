@@ -1,0 +1,94 @@
+    // nrf52dk-1, EA:5B, 10
+    if (strcmp(my_addr, "EA:5B") == 0) {
+        add_fib("/C", "F3:6F");
+    }
+
+    // nrf52dk-2, F3:6F, 9
+    if (strcmp(my_addr, "F3:6F") == 0) {
+        add_fib("/EA:5B", "EA:5B");
+        add_fib("/C", "FB:E8");
+    }
+
+    // nrf52dk-3, FB:E8, 8
+    if (strcmp(my_addr, "FB:E8") == 0) {
+        add_fib("/F3:6F", "F3:6F");
+        add_fib("/EA:5B", "F3:6F");
+        add_fib("/C", "3B:13");
+    }
+
+    // nrf52dk-4, 3B:13, 7
+    if (strcmp(my_addr, "3B:13") == 0) {
+        add_fib("/FB:E8", "FB:E8");
+        add_fib("/F3:6F", "FB:E8");
+        add_fib("/EA:5B", "FB:E8");
+        add_fib("/C", "B7:41");
+    }
+
+    // nrf52dk-5, B7:41, 6
+    if (strcmp(my_addr, "B7:41") == 0) {
+        add_fib("/3B:13", "3B:13");
+        add_fib("/F3:6F", "3B:13");
+        add_fib("/EA:5B", "3B:13");
+        add_fib("/FB:E8", "3B:13");
+        add_fib("/C", "A5:61");
+    }
+
+    // nrf52dk-6, A5:61, 5
+    if (strcmp(my_addr, "A5:61") == 0) {
+        add_fib("/B7:41", "B7:41");
+        add_fib("/EA:5B", "B7:41");
+        add_fib("/3B:13", "B7:41");
+        add_fib("/F3:6F", "B7:41");
+        add_fib("/FB:E8", "B7:41");
+        add_fib("/C", "C5:E5");
+    }
+
+    // nrf52dk-7, C5:E5, 4
+    if (strcmp(my_addr, "C5:E5") == 0) {
+        add_fib("/A5:61", "A5:61");
+        add_fib("/B7:41", "A5:61");
+        add_fib("/FB:E8", "A5:61");
+        add_fib("/F3:6F", "A5:61");
+        add_fib("/3B:13", "A5:61");
+        add_fib("/EA:5B", "A5:61");
+        add_fib("/C", "EE:47");
+    }
+
+    // nrf52dk-8, EE:47, 3
+    if (strcmp(my_addr, "EE:47") == 0) {
+        add_fib("/C5:E5", "C5:E5");
+        add_fib("/B7:41", "C5:E5");
+        add_fib("/A5:61", "C5:E5");
+        add_fib("/FB:E8", "C5:E5");
+        add_fib("/F3:6F", "C5:E5");
+        add_fib("/3B:13", "C5:E5");
+        add_fib("/EA:5B", "C5:E5");
+        add_fib("/C", "E7:16");
+    }
+
+    // nrf52dk-9, E7:16, 2
+    if (strcmp(my_addr, "E7:16") == 0) {
+        add_fib("/EE:47", "EE:47");
+        add_fib("/B7:41", "EE:47");
+        add_fib("/A5:61", "EE:47");
+        add_fib("/FB:E8", "EE:47");
+        add_fib("/C5:E5", "EE:47");
+        add_fib("/F3:6F", "EE:47");
+        add_fib("/3B:13", "EE:47");
+        add_fib("/EA:5B", "EE:47");
+        add_fib("/C", "90:3C");
+    }
+
+    // nrf52dk-10, 90:3C, 1
+    if (strcmp(my_addr, "90:3C") == 0) {
+        add_fib("/E7:16", "E7:16");
+        add_fib("/EE:47", "E7:16");
+        add_fib("/B7:41", "E7:16");
+        add_fib("/A5:61", "E7:16");
+        add_fib("/FB:E8", "E7:16");
+        add_fib("/C5:E5", "E7:16");
+        add_fib("/F3:6F", "E7:16");
+        add_fib("/3B:13", "E7:16");
+        add_fib("/EA:5B", "E7:16");
+    }
+
