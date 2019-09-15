@@ -6,3 +6,7 @@
 	path = btmesh/mynewt-nimble
 	url = https://github.com/haukepetersen/mynewt-nimble.git
 	branch = bench_mesh_stats
+[submodule "ndn/RIOT-public"]
+	path = ndn/RIOT-public
+	url = https://github.com/5G-I3/RIOT-public.git
+	branch = 5G-I3_acmcin19_icnble
