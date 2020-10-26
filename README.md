@@ -1,1 +1,1 @@
-
+Artifacts of [Bluetooth Mesh under the Microscope: How much ICN is Inside?](https://conferences.sigcomm.org/acm-icn/2019/proceedings/icn19-22.pdf) published in [Proc. of ACM ICN 2019](https://doi.org/10.1145/3357150.3357398).
